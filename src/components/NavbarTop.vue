@@ -32,7 +32,7 @@
         </div>
 
         <div class="form-inline">
-          <router-link to="login" class="btn btn-success px-4 my-2 my-sm-0" style="border-radius: 30px">Login</router-link>
+          <router-link to="/login" class="btn btn-success px-4 my-2 my-sm-0" style="border-radius: 30px">Login</router-link>
         </div>
       </div>
     </nav>
