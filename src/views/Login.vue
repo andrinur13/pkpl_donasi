@@ -49,11 +49,20 @@ export default {
 
     methods: {
         auth() {
-            axios.post(process.env.VUE_APP_API + 'sessions', this.login).then((resp) => {
+            axios.post(process.env.VUE_APP_API + 'login', this.login).then((resp) => {
                 if(resp.status == 200) {
                     let token = resp.data.data.token;
                     localStorage.setItem('token', token)
-                    this.successLogin = true
+                    this.successLogin = true;
+
+                    // data user
+                    let datauser = {
+                      name: resp.data.data.name,
+                      email: resp.data.data.email
+                    }
+
+                    localStorage.setItem('data_donasiku', JSON.stringify(datauser));
+
                     setTimeout(() => {
                         this.$router.push('/');
                     }, 2000);

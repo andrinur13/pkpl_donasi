@@ -9,23 +9,7 @@
         <div class="col-4">
           <div class="card mt-4">
             <div class="card-body">
-              <div class="font-weight-bold">Project Leader</div>
-              <div class="row mt-2">
-                <div class="col-auto">
-                  <img :src="UserCheck" class="img-fluid" style="max-width: 50px" alt="" />
-                </div>
-                <div class="col">
-                  <div class="font-weight-bold">
-                    {{ campaign.user.name }}
-                  </div>
-                  <div class="text-muted">
-                    {{ campaign.backer_count }}
-                  </div>
-                </div>
-              </div>
-              <div class="row mt-4">
-                <div class="col font-weight-bold">What will You get</div>
-              </div>
+              <div class="font-weight-bold">Jumlah Funding</div>
               <div class="row">
                 <div class="col">
                   <ul>
@@ -36,7 +20,7 @@
               <div class="row mt-4">
                 <div class="col">
                   <div>
-                    <input type="number" class="form-control" style="border-radius: 30px; padding: 25px" v-model="input.amount" />
+                    <input type="number" class="form-control" style="border-radius: 30px; padding: 25px" v-model="input.amount" placeholder="Rp. 0" />
                   </div>
                   <div>
                     <button @click="fundProcess()" class="btn btn-primary btn-block mt-3" style="border-radius: 30px; padding: 15px">Fund Now!</button>
@@ -50,7 +34,7 @@
       <div class="row" style="margin-top: 100px">
         <div class="col">
           <div class="font-weight-bold h1">
-            {{ campaign.name }}
+            {{ campaign.name }} apa
           </div>
           <div>
             {{ campaign.short_description }}
@@ -91,11 +75,13 @@ export default {
         user: {
           name: "",
         },
+        name: ""
       },
       UserCheck,
       input: {
-        amount: 0,
+        amount: null,
       },
+      urlPayment: null
     };
   },
 
@@ -106,34 +92,33 @@ export default {
   methods: {
     loadCampaignDetail() {
       let params = this.$route.params.id;
-      let paramsArray = params.split("-");
 
-      let id_campaign = paramsArray[paramsArray.length - 1];
-
-      axios.get(process.env.VUE_APP_API + "campaigns/" + id_campaign).then((resp) => {
-        if (resp.status == 200) {
-          if (resp.data.data.slug != params) {
-            console.log("failed");
-          } else {
-            this.campaign = resp.data.data;
-          }
-        }
+      axios.get(process.env.VUE_APP_API + "campaigns/" + params).then((resp) => {
+        this.campaign = resp.data.data;
       });
     },
 
     fundProcess() {
         console.log('detail funding clicked')
-        let token = 'Bearer ' + localStorage.getItem('token');
-        console.log(token);
-        let response = axios.post(process.env.VUE_APP_API + 'transactions', {
+
+        let datafunding = {
           amount: this.input.amount,
           campaign_id: this.campaign.id
-        }, {
-          'Authorization': token
-        },
-        )
+        }
 
-        console.log(response)
+        axios.post(process.env.VUE_APP_API + 'funding', datafunding, {
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          }
+        }).then((resp) => {
+          if(resp.status == 200) {
+            // parse url payment
+            this.urlPayment = resp.data.data.code;
+          }
+        }).then(() => {
+          window.open(this.urlPayment, '_blank');
+        })
+
     }
   }
 }

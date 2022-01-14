@@ -35,7 +35,14 @@ const routes = [
     path: '/project/:id',
     name: 'Project Detail',
     component: () => import('@/views/DetailFunding.vue')
+  },
+
+  {
+    path: '/account/myfunding',
+    name: 'My Funding',
+    component: () => import('@/views/MyFunding.vue')
   }
+
 ]
 
 const router = new VueRouter({

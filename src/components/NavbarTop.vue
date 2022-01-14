@@ -32,7 +32,13 @@
         </div>
 
         <div class="form-inline">
-          <router-link to="/login" class="btn btn-success px-4 my-2 my-sm-0" style="border-radius: 30px">Login</router-link>
+          <!-- <div class="btn btn-success px-4 my-2 my-sm-0" style="border-radius: 30px" v-if="dataUser.name != null">  </div> -->
+          <div v-if="dataUser.name != null">
+            <b-dropdown id="dropdown-1" :text="dataUser.name" class="m-md-2" variant="success">
+              <b-dropdown-item @click="logout()">Logout</b-dropdown-item>
+            </b-dropdown>
+          </div>
+          <router-link to="/login" class="btn btn-success px-4 my-2 my-sm-0" style="border-radius: 30px" v-else> Login </router-link>
         </div>
       </div>
     </nav>
@@ -40,19 +46,33 @@
 </template>
 
 <script>
-import axios from 'axios';
 export default {
   name: "NavbarTop",
 
+  data() {
+    return {
+      dataUser: {}
+    }
+  },
+
   methods: {
     userFetch() {
-      axios.get(process.env.VUE_APP_API + 'users/fetch', {
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('token')
-        }
-      }).then((resp) => {
-        console.log(resp)
-      })
+      let data_donasiku = JSON.parse(localStorage.getItem('data_donasiku'));
+
+      if(data_donasiku ==  null) {
+        localStorage.removeItem('data_donasiku');
+        localStorage.removeItem('token');
+      } else {
+        this.dataUser = data_donasiku;
+      }
+
+    },
+
+    logout() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('data_donasiku');
+
+      location.reload();
     }
   },
 
