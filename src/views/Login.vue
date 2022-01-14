@@ -24,6 +24,10 @@
               <div v-if="successLogin == true" class="alert alert-success">
                   <small>Berhasil login, harap tunggu!</small>
               </div>
+
+              <div v-if="failedLogin == true" class="alert alert-danger">
+                  <small>Email atau Password Salah!</small>
+              </div>
               <button type="submit" class="btn btn-primary mt-4 btn-block p-3" @click="auth()">Login</button>
             </form>
           </div>
@@ -43,7 +47,8 @@ export default {
                 email: '',
                 password: ''
             },
-            successLogin: false
+            successLogin: false,
+            failedLogin: false
         }
     },
 
@@ -67,7 +72,12 @@ export default {
                         this.$router.push('/');
                     }, 2000);
                 }
-            })            
+            }).catch(() => {
+              this.failedLogin = true;
+              setTimeout(() => {
+                this.failedLogin = false;
+              }, 3000);
+            })       
         }
     }
 };
