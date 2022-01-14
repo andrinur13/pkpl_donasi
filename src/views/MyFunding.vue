@@ -16,11 +16,13 @@
                           <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    Rp. {{Intl.NumberFormat().format(item.amount)}}
+                                    {{item.campaign_name}}
                                 </div>
 
                                 <div class="col">
-                                    Rp. {{Intl.NumberFormat().format(item.amount)}}
+                                    <div>
+                                        Rp. {{Intl.NumberFormat().format(item.amount)}}
+                                    </div>
                                 </div>
 
                                 <div class="col-auto mr-1">
@@ -61,7 +63,7 @@ export default {
             }).then((resp) => {
                 console.log('=== my funding ===')
                 console.log(resp);
-                this.fundingTransactions = resp.data.data.transactions;
+                this.fundingTransactions = resp.data.data;
             })
         }
     },

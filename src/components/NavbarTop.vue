@@ -15,30 +15,20 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav">
-            <li class="nav-item ml-2">
-              <router-link class="nav-link" to="/">Project</router-link>
-            </li>
-
-            <li class="nav-item ml-2">
-              <router-link class="nav-link" to="/">Features</router-link>
-            </li>
-
-            <li class="nav-item ml-2">
-              <router-link class="nav-link" to="/">Success Stories</router-link>
-            </li>
-          </ul>
-        </div>
-
         <div class="form-inline">
           <!-- <div class="btn btn-success px-4 my-2 my-sm-0" style="border-radius: 30px" v-if="dataUser.name != null">  </div> -->
           <div v-if="dataUser.name != null">
             <b-dropdown id="dropdown-1" :text="dataUser.name" class="m-md-2" variant="success">
               <b-dropdown-item @click="logout()">Logout</b-dropdown-item>
+              <b-dropdown-item>
+                <router-link to="/account/myfunding" class="text-black">Funding Saya</router-link>
+              </b-dropdown-item>
             </b-dropdown>
           </div>
-          <router-link to="/login" class="btn btn-success px-4 my-2 my-sm-0" style="border-radius: 30px" v-else> Login </router-link>
+          <div v-else>
+            <router-link to="/login" class="btn btn-success px-4 my-2 my-sm-0" style="border-radius: 30px"> Login </router-link>
+            <router-link to="/register" class="btn btn-success px-4 my-2 my-sm-0 ml-2" style="border-radius: 30px"> Register </router-link>
+          </div>
         </div>
       </div>
     </nav>

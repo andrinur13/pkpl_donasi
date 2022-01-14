@@ -4,7 +4,7 @@
     <div class="container">
       <div class="row">
         <div class="col-8">
-          <img src="https://www.malasngoding.com/wp-content/uploads/2019/07/card-decks-bootstrap-4.png" class="img-fluid" alt="" />
+          <img :src="campaign.file_name" class="img-fluid" alt="" />
         </div>
         <div class="col-4">
           <div class="card mt-4">

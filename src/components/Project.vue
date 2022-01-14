@@ -9,7 +9,7 @@
       <div class="row row-cols-1 row-cols-md-3">
         <div class="col mb-4" v-for="index in campaigns" :key="index.id">
           <div class="card h-100">
-            <img src="https://www.malasngoding.com/wp-content/uploads/2019/07/card-decks-bootstrap-4.png" class="card-img-top" alt="..." />
+            <img :src="index.file_name" class="card-img-top" alt="..." />
             <div class="card-body">
               <h5 class="card-title">{{ index.name }}</h5>
               <p class="card-text">
