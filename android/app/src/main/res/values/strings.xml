@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Donasi Online</string>
+    <string name="title_activity_main">Donasi Online</string>
+    <string name="package_name">my.id.andrinur13</string>
+    <string name="custom_url_scheme">my.id.andrinur13</string>
+</resources>
